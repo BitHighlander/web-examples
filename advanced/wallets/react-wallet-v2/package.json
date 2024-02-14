@@ -9,6 +9,11 @@
     "prettier:write": "prettier --write '**/*.{js,ts,jsx,tsx}'"
   },
   "dependencies": {
+    "@coinmasters/core": "^8.0.18",
+    "@coinmasters/helpers": "^8.0.18",
+    "@coinmasters/toolbox-evm": "^8.0.18",
+    "@coinmasters/types": "^4.5.0",
+    "@coinmasters/wallet-keepkey": "^10.0.19",
     "@cosmjs/amino": "0.32.2",
     "@cosmjs/encoding": "0.32.2",
     "@cosmjs/proto-signing": "0.32.2",
@@ -25,6 +30,7 @@
     "@multiversx/sdk-wallet": "4.2.0",
     "@near-wallet-selector/wallet-utils": "^8.0.0",
     "@nextui-org/react": "1.0.8-beta.5",
+    "@pioneer-platform/pioneer-coins": "^9.2.13",
     "@polkadot/keyring": "^10.1.2",
     "@polkadot/types": "^9.3.3",
     "@solana/web3.js": "1.89.0",
@@ -52,7 +58,7 @@
   "devDependencies": {
     "@types/node": "17.0.35",
     "@types/react": "17.0.2",
-    "eslint": "8.15.0",
+    "eslint": "^8.15.0",
     "eslint-config-next": "12.1.6",
     "eslint-config-prettier": "8.5.0",
     "prettier": "2.6.2",
