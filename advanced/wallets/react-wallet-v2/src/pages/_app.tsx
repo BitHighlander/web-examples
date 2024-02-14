@@ -1,10 +1,11 @@
 import { Toaster } from 'react-hot-toast'
 import { useEffect } from 'react'
 import { createTheme, NextUIProvider } from '@nextui-org/react'
-
+import { KeepKeyWalletProvider } from "../context/WalletProvider";
 import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
 import useInitialization from '@/hooks/useInitialization'
+import useKeepKey from '@/hooks/useKeepKey'
 import useWalletConnectEventsManager from '@/hooks/useWalletConnectEventsManager'
 import { web3wallet } from '@/utils/WalletConnectUtil'
 import { RELAYER_EVENTS } from '@walletconnect/core'
@@ -14,7 +15,8 @@ import { styledToast } from '@/utils/HelperUtil'
 
 export default function App({ Component, pageProps }: AppProps) {
   // Step 1 - Initialize wallets and wallet connect client
-  const initialized = useInitialization()
+  // const initialized = useInitialization()
+  const initialized = useKeepKey()
 
   // Step 2 - Once initialized, set up wallet connect event manager
   useWalletConnectEventsManager(initialized)
@@ -31,12 +33,14 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <NextUIProvider theme={createTheme({ type: 'dark' })}>
-      <Layout initialized={initialized}>
-        <Toaster />
-        <Component {...pageProps} />
-      </Layout>
+      <KeepKeyWalletProvider>
+        <Layout initialized={initialized}>
+          <Toaster />
+          <Component {...pageProps} />
+        </Layout>
 
-      <Modal />
+        <Modal />
+      </KeepKeyWalletProvider>
     </NextUIProvider>
   )
 }
