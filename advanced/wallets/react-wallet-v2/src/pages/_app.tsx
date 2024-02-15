@@ -16,11 +16,12 @@ export default function App({ Component, pageProps }: AppProps) {
   // const [keepkey, setKeepKey] = useState(false);
 
   // Step 1 - Initialize wallets and wallet connect client
-  // const initialized = useInitialization()
-  const keepkey = useKeepKey()
+  const keepkey = useInitialization()
+  // const keepkey = useKeepKey()
 
   // Step 2 - Once initialized, set up wallet connect event manager
   useWalletConnectEventsManager(keepkey)
+
   useEffect(() => {
     if (!keepkey) return
     web3wallet?.core.relayer.on(RELAYER_EVENTS.connect, () => {

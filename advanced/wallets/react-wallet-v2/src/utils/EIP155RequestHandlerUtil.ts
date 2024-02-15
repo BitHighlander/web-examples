@@ -52,7 +52,7 @@ const getWallet = async (params: any) => {
 }
 
 
-export async function approveEIP155Request(requestEvent: RequestEventArgs) {
+export async function approveEIP155Request(requestEvent: RequestEventArgs, keepkey: any) {
   const { params, id } = requestEvent
   const { chainId, request } = params
 
@@ -67,7 +67,19 @@ export async function approveEIP155Request(requestEvent: RequestEventArgs) {
     case EIP155_SIGNING_METHODS.ETH_SIGN:
       try {
         const message = getSignParamsMessage(request.params)
+
+        /*
+          Wallet touch point signedMessage
+
+          Examples:
+
+         */
         const signedMessage = await wallet.signMessage(message)
+
+        // console.log("signMessage: walletMethods: ",keepkey['ETH'].walletMethods)
+        // const signedMessage = await keepkey['ETH'].walletMethods.signMessage(message)
+        // console.log("signedMessage: ",signedMessage)
+
         return formatJsonRpcResult(id, signedMessage)
       } catch (error: any) {
         console.error(error)
@@ -82,7 +94,21 @@ export async function approveEIP155Request(requestEvent: RequestEventArgs) {
         const { domain, types, message: data, primaryType } = getSignTypedDataParamsData(request.params)
         // https://github.com/ethers-io/ethers.js/issues/687#issuecomment-714069471
         delete types.EIP712Domain
+
+        //
+        /*
+          Wallet touch point signedMessage
+
+          Examples:
+
+         */
+
         const signedData = await wallet._signTypedData(domain, types, data, primaryType)
+
+        // console.log("signTypedData: ",{domain, types, data, primaryType})
+        // const signedMessage = await keepkey['ETH'].walletMethods.signTypedData(domain, types, data, primaryType)
+        // console.log("signedMessage: ",signedMessage)
+
         return formatJsonRpcResult(id, signedData)
       } catch (error: any) {
         console.error(error)
@@ -94,8 +120,14 @@ export async function approveEIP155Request(requestEvent: RequestEventArgs) {
       try {
         const provider = new providers.JsonRpcProvider(EIP155_CHAINS[chainId as TEIP155Chain].rpc)
         const sendTransaction = request.params[0]
+
+        //Old
         const connectedWallet = await wallet.connect(provider)
         const hash = await connectedWallet.sendTransaction(sendTransaction)
+
+        //new
+        // const hash = await keepkey['ETH'].walletMethods.sendTransaction(sendTransaction)
+
         const receipt = typeof hash === 'string' ? hash : hash?.hash // TODO improve interface
         return formatJsonRpcResult(id, receipt)
       } catch (error: any) {
@@ -107,7 +139,14 @@ export async function approveEIP155Request(requestEvent: RequestEventArgs) {
     case EIP155_SIGNING_METHODS.ETH_SIGN_TRANSACTION:
       try {
         const signTransaction = request.params[0]
+
+        //old
         const signature = await wallet.signTransaction(signTransaction)
+
+        //new
+        // const signature = await keepkey['ETH'].walletMethods.signTransaction(signTransaction)
+        // console.log("signature: ",signature)
+
         return formatJsonRpcResult(id, signature)
       } catch (error: any) {
         console.error(error)

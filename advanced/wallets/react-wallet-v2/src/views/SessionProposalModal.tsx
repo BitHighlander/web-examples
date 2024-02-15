@@ -92,6 +92,10 @@ export default function SessionProposalModal({keepkey}:any) {
     // const tronChains = Object.keys(TRON_CHAINS)
     // const tronMethods = Object.values(TRON_SIGNING_METHODS)
 
+    console.log("keepkey:",keepkey)
+    //eip155Addresses[0]
+    // let eip155Addresses = [keepkey['ETH'].wallet.address]
+
     return {
       eip155: {
         chains: eip155Chains,

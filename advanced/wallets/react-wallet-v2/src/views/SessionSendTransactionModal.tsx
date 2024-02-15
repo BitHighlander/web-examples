@@ -10,7 +10,7 @@ import { styledToast } from '@/utils/HelperUtil'
 import { web3wallet } from '@/utils/WalletConnectUtil'
 import RequestModal from './RequestModal'
 
-export default function SessionSendTransactionModal() {
+export default function SessionSendTransactionModal({keepkey}:any) {
   const [isLoadingApprove, setIsLoadingApprove] = useState(false)
   const [isLoadingReject, setIsLoadingReject] = useState(false)
 
@@ -29,7 +29,7 @@ export default function SessionSendTransactionModal() {
     if (requestEvent && topic) {
       setIsLoadingApprove(true)
       try {
-        const response = await approveEIP155Request(requestEvent)
+        const response = await approveEIP155Request(requestEvent, keepkey)
         await web3wallet.respondSessionRequest({
           topic,
           response
