@@ -137,8 +137,8 @@ let onStartKeepkey = async function(){
     }
 }
 
-export default function useInitialization() {
-    const [initialized, setInitialized] = useState(false)
+export default function useKeepKey() {
+    const [keepkey, setKeepKey] = useState(false)
     const prevRelayerURLValue = useRef<string>('')
 
     const { relayerRegionURL } = useSnapshot(SettingsStore.state)
@@ -147,6 +147,7 @@ export default function useInitialization() {
         try {
             // const { eip155Addresses } = createOrRestoreEIP155Wallet()
             let keepkey = await onStartKeepkey()
+            setKeepKey(keepkey)
             console.log("keepkey: ", keepkey);
             console.log("keepkey: ", keepkey.ETH);
             console.log("keepkey: ", keepkey.ETH.wallet);
@@ -172,7 +173,7 @@ export default function useInitialization() {
             // SettingsStore.setTezosAddress(tezosAddresses[0])
             // SettingsStore.setKadenaAddress(kadenaAddresses[0])
             await createWeb3Wallet(relayerRegionURL)
-            setInitialized(true)
+            // setInitialized(true)
         } catch (err: unknown) {
             alert(err)
         }
@@ -189,13 +190,13 @@ export default function useInitialization() {
     }, [relayerRegionURL])
 
     useEffect(() => {
-        if (!initialized) {
+        if (!keepkey) {
             onInitialize()
         }
         if (prevRelayerURLValue.current !== relayerRegionURL) {
             onRelayerRegionChange()
         }
-    }, [initialized, onInitialize, relayerRegionURL, onRelayerRegionChange])
+    }, [keepkey, onInitialize, relayerRegionURL, onRelayerRegionChange])
 
-    return initialized
+    return keepkey
 }

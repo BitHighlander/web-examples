@@ -1,7 +1,6 @@
 import { Toaster } from 'react-hot-toast'
 import { useEffect } from 'react'
 import { createTheme, NextUIProvider } from '@nextui-org/react'
-import { KeepKeyWalletProvider } from "../context/WalletProvider";
 import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
 import useInitialization from '@/hooks/useInitialization'
@@ -14,14 +13,16 @@ import '../../public/main.css'
 import { styledToast } from '@/utils/HelperUtil'
 
 export default function App({ Component, pageProps }: AppProps) {
+  // const [keepkey, setKeepKey] = useState(false);
+
   // Step 1 - Initialize wallets and wallet connect client
   // const initialized = useInitialization()
-  const initialized = useKeepKey()
+  const keepkey = useKeepKey()
 
   // Step 2 - Once initialized, set up wallet connect event manager
-  useWalletConnectEventsManager(initialized)
+  useWalletConnectEventsManager(keepkey)
   useEffect(() => {
-    if (!initialized) return
+    if (!keepkey) return
     web3wallet?.core.relayer.on(RELAYER_EVENTS.connect, () => {
       styledToast('Network connection is restored!', 'success')
     })
@@ -29,18 +30,16 @@ export default function App({ Component, pageProps }: AppProps) {
     web3wallet?.core.relayer.on(RELAYER_EVENTS.disconnect, () => {
       styledToast('Network connection lost.', 'error')
     })
-  }, [initialized])
+  }, [keepkey])
 
   return (
     <NextUIProvider theme={createTheme({ type: 'dark' })}>
-      <KeepKeyWalletProvider>
-        <Layout initialized={initialized}>
+        <Layout keepkey={keepkey}>
           <Toaster />
           <Component {...pageProps} />
         </Layout>
 
-        <Modal />
-      </KeepKeyWalletProvider>
+        <Modal keepkey={keepkey}/>
     </NextUIProvider>
   )
 }

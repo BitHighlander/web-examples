@@ -18,7 +18,7 @@ import { useCallback, useMemo } from 'react'
 import AuthRequestModal from '@/views/AuthRequestModal'
 import LoadingModal from '@/views/LoadingModal'
 
-export default function Modal() {
+export default function Modal({keepkey}:any) {
   const { open, view } = useSnapshot(ModalStore.state)
   // handle the modal being closed by click outside
   const onClose = useCallback(() => {
@@ -30,31 +30,31 @@ export default function Modal() {
   const componentView = useMemo(() => {
     switch (view) {
       case 'SessionProposalModal':
-        return <SessionProposalModal />
+        return <SessionProposalModal keepkey={keepkey}/>
       case 'SessionSignModal':
-        return <SessionRequestModal />
+        return <SessionRequestModal keepkey={keepkey}/>
       case 'SessionSignTypedDataModal':
-        return <SessionSignTypedDataModal />
+        return <SessionSignTypedDataModal keepkey={keepkey}/>
       case 'SessionSendTransactionModal':
-        return <SessionSendTransactionModal />
+        return <SessionSendTransactionModal keepkey={keepkey}/>
       case 'SessionUnsuportedMethodModal':
-        return <SessionUnsuportedMethodModal />
-      case 'SessionSignCosmosModal':
-        return <SessionSignCosmosModal />
-      case 'SessionSignSolanaModal':
-        return <SessionSignSolanaModal />
-      case 'SessionSignPolkadotModal':
-        return <SessionSignPolkadotModal />
-      case 'SessionSignNearModal':
-        return <SessionSignNearModal />
-      case 'SessionSignMultiversxModal':
-        return <SessionSignMultiversxModal />
-      case 'SessionSignTronModal':
-        return <SessionSignTronModal />
-      case 'SessionSignTezosModal':
-        return <SessionSignTezosModal />
-      case 'SessionSignKadenaModal':
-        return <SessionSignKadenaModal />
+        return <SessionUnsuportedMethodModal keepkey={keepkey}/>
+      // case 'SessionSignCosmosModal':
+      //   return <SessionSignCosmosModal />
+      // case 'SessionSignSolanaModal':
+      //   return <SessionSignSolanaModal />
+      // case 'SessionSignPolkadotModal':
+      //   return <SessionSignPolkadotModal />
+      // case 'SessionSignNearModal':
+      //   return <SessionSignNearModal />
+      // case 'SessionSignMultiversxModal':
+      //   return <SessionSignMultiversxModal />
+      // case 'SessionSignTronModal':
+      //   return <SessionSignTronModal />
+      // case 'SessionSignTezosModal':
+      //   return <SessionSignTezosModal />
+      // case 'SessionSignKadenaModal':
+      //   return <SessionSignKadenaModal />
       case 'AuthRequestModal':
         return <AuthRequestModal />
       case 'LoadingModal':

@@ -14,7 +14,8 @@ interface Props {
 /**
  * Container
  */
-export default function Layout({ children, initialized }: Props) {
+export default function Layout({ children, keepkey }: Props) {
+
   return (
     <Container
       display="flex"
@@ -33,8 +34,8 @@ export default function Layout({ children, initialized }: Props) {
         css={{
           height: '100%',
           width: '100%',
-          justifyContent: initialized ? 'normal' : 'center',
-          alignItems: initialized ? 'normal' : 'center',
+          justifyContent: keepkey ? 'normal' : 'center',
+          alignItems: keepkey ? 'normal' : 'center',
           borderRadius: 0,
           paddingBottom: 5,
           '@xs': {
@@ -44,7 +45,7 @@ export default function Layout({ children, initialized }: Props) {
           }
         }}
       >
-        {initialized ? (
+        {keepkey ? (
           <Fragment>
             <RouteTransition>
               <Card.Body
@@ -81,7 +82,9 @@ export default function Layout({ children, initialized }: Props) {
             </Card.Footer>
           </Fragment>
         ) : (
-          <Loading />
+            <div>
+                <Loading />
+            </div>
         )}
       </Card>
     </Container>

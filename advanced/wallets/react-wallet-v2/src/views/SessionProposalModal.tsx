@@ -47,7 +47,7 @@ const StyledSpan = styled('span', {
   fontWeight: 400
 } as any)
 
-export default function SessionProposalModal() {
+export default function SessionProposalModal({keepkey}:any) {
   const { smartAccountSponsorshipEnabled, smartAccountEnabled } = useSnapshot(SettingsStore.state)
   // Get proposal data and wallet address from store
   const data = useSnapshot(ModalStore.state)
