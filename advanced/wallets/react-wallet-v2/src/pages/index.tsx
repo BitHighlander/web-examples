@@ -14,13 +14,12 @@ import SettingsStore from '@/store/SettingsStore'
 import { Text } from '@nextui-org/react'
 import { Fragment } from 'react'
 import { useSnapshot } from 'valtio'
-import SmartAccountCard from '@/components/SmartAccountCard'
+import { isAllowedKernelChain, isAllowedSafeChain } from '@/utils/SmartAccountUtil'
 
 export default function HomePage() {
   const {
     testNets,
     eip155Address,
-    activeChainId,
     cosmosAddress,
     solanaAddress,
     polkadotAddress,
@@ -28,7 +27,10 @@ export default function HomePage() {
     multiversxAddress,
     tronAddress,
     tezosAddress,
-    kadenaAddress
+    kadenaAddress,
+    kernelSmartAccountAddress,
+    safeSmartAccountAddress,
+    smartAccountEnabled
   } = useSnapshot(SettingsStore.state)
 
   return (

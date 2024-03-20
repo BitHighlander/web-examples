@@ -3,11 +3,11 @@ import RelayRegionPicker from '@/components/RelayRegionPicker'
 import SettingsStore from '@/store/SettingsStore'
 // import { cosmosWallets } from '@/utils/CosmosWalletUtil'
 import { eip155Wallets } from '@/utils/EIP155WalletUtil'
-// import { solanaWallets } from '@/utils/SolanaWalletUtil'
-// import { multiversxWallets } from '@/utils/MultiversxWalletUtil'
-// import { tronWallets } from '@/utils/TronWalletUtil'
-// import { kadenaWallets } from '@/utils/KadenaWalletUtil'
-import { Card, Divider, Row, Switch, Text } from '@nextui-org/react'
+//import { solanaWallets } from '@/utils/SolanaWalletUtil'
+//import { multiversxWallets } from '@/utils/MultiversxWalletUtil'
+//import { tronWallets } from '@/utils/TronWalletUtil'
+//import { kadenaWallets } from '@/utils/KadenaWalletUtil'
+import { Card, Col, Divider, Row, Switch, Text } from '@nextui-org/react'
 import { Fragment } from 'react'
 import { useSnapshot } from 'valtio'
 import packageJSON from '../../package.json'
@@ -24,7 +24,9 @@ export default function SettingsPage() {
     // tronAddress,
     // tezosAddress,
     // kadenaAddress,
-    // smartAccountEnabled
+    // smartAccountEnabled,
+    // kernelSmartAccountEnabled,
+    safeSmartAccountEnabled
   } = useSnapshot(SettingsStore.state)
 
   return (
@@ -53,35 +55,71 @@ export default function SettingsPage() {
       {/*  <Text>{testNets ? 'Enabled' : 'Disabled'}</Text>*/}
       {/*</Row>*/}
 
-      {/*<Divider y={2} />*/}
+      <Divider y={2} />
 
-      {/*<Text h4 css={{ marginBottom: '$5' }}>*/}
-      {/*  Smart Account Sponsorship (Pimlico)*/}
-      {/*</Text>*/}
-      {/*<Row justify="space-between" align="center">*/}
-      {/*  <Switch*/}
-      {/*    checked={smartAccountSponsorshipEnabled}*/}
-      {/*    onChange={SettingsStore.toggleSmartAccountSponsorship}*/}
-      {/*    data-testid="settings-toggle-smart-account-sponsorship"*/}
-      {/*  />*/}
-      {/*  <Text>{smartAccountSponsorshipEnabled ? 'Enabled' : 'Disabled'}</Text>*/}
+      {/*<Row>*/}
+      {/*  <Col>*/}
+      {/*    <Text h4 css={{ marginBottom: '$5' }}>*/}
+      {/*      Smart Accounts*/}
+      {/*    </Text>*/}
+      {/*    {testNets ? (*/}
+      {/*      <>*/}
+      {/*        <Row justify="space-between" align="center">*/}
+      {/*          <Switch*/}
+      {/*            checked={smartAccountEnabled}*/}
+      {/*            onChange={SettingsStore.toggleSmartAccountEnabled}*/}
+      {/*            data-testid="settings-toggle-smart-account-enabled"*/}
+      {/*          />*/}
+      {/*          <Text>{smartAccountEnabled ? 'Enabled' : 'Disabled'}</Text>*/}
+      {/*        </Row>*/}
+
+      {/*        {smartAccountEnabled ? (*/}
+      {/*          <>*/}
+      {/*            <Text h4 css={{ marginBottom: '$5', marginTop: '$5' }}>*/}
+      {/*              ZeroDev Smart Account*/}
+      {/*            </Text>*/}
+      {/*            <Row justify="space-between" align="center">*/}
+      {/*              <Switch*/}
+      {/*                checked={kernelSmartAccountEnabled}*/}
+      {/*                onChange={SettingsStore.toggleKernelSmartAccountsEnabled}*/}
+      {/*                data-testid="settings-toggle-smart-account-sponsorship"*/}
+      {/*              />*/}
+      {/*              <Text>{kernelSmartAccountEnabled ? 'Enabled' : 'Disabled'}</Text>*/}
+      {/*            </Row>*/}
+
+      {/*            <Text h4 css={{ marginBottom: '$5', marginTop: '$5' }}>*/}
+      {/*              Safe Smart Account*/}
+      {/*            </Text>*/}
+      {/*            <Row justify="space-between" align="center">*/}
+      {/*              <Switch*/}
+      {/*                checked={safeSmartAccountEnabled}*/}
+      {/*                onChange={SettingsStore.toggleSafeSmartAccountsEnabled}*/}
+      {/*                data-testid="settings-toggle-smart-account-sponsorship"*/}
+      {/*              />*/}
+      {/*              <Text>{safeSmartAccountEnabled ? 'Enabled' : 'Disabled'}</Text>*/}
+      {/*            </Row>*/}
+
+      {/*            <Text h4 css={{ marginBottom: '$5', marginTop: '$5' }}>*/}
+      {/*              Sponsorship (Pimlico)*/}
+      {/*            </Text>*/}
+      {/*            <Row justify="space-between" align="center">*/}
+      {/*              <Switch*/}
+      {/*                checked={smartAccountSponsorshipEnabled}*/}
+      {/*                onChange={SettingsStore.toggleSmartAccountSponsorship}*/}
+      {/*                data-testid="settings-toggle-smart-account-sponsorship"*/}
+      {/*              />*/}
+      {/*              <Text>{smartAccountSponsorshipEnabled ? 'Enabled' : 'Disabled'}</Text>*/}
+      {/*            </Row>*/}
+      {/*          </>*/}
+      {/*        ) : null}*/}
+      {/*      </>*/}
+      {/*    ) : (*/}
+      {/*      <Text color="$gray400">This feature requires testnets</Text>*/}
+      {/*    )}*/}
+      {/*  </Col>*/}
       {/*</Row>*/}
 
-      {/*<Divider y={2} />*/}
-
-      {/*<Text h4 css={{ marginBottom: '$5' }}>*/}
-      {/*  Smart Account Enabled*/}
-      {/*</Text>*/}
-      {/*<Row justify="space-between" align="center">*/}
-      {/*  <Switch*/}
-      {/*    checked={smartAccountEnabled}*/}
-      {/*    onChange={SettingsStore.toggleSmartAccountEnabled}*/}
-      {/*    data-testid="settings-toggle-smart-account-enabled"*/}
-      {/*  />*/}
-      {/*  <Text>{smartAccountEnabled ? 'Enabled' : 'Disabled'}</Text>*/}
-      {/*</Row>*/}
-
-      {/*<Divider y={2} />*/}
+      <Divider y={2} />
 
       <Row justify="space-between" align="center">
         <Text h4 css={{ marginBottom: '$5' }}>
