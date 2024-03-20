@@ -28,11 +28,14 @@ export default function WalletConnectPage(params: { deepLink?: string }) {
     try {
       setLoading(true)
       web3wallet.core.pairing.events.on('pairing_expire', pairingExpiredListener)
+      console.log("Pairing URI: ", uri)
       await web3wallet.pair({ uri })
     } catch (error) {
+      console.error("onConnect error: ", error)
       styledToast((error as Error).message, 'error')
       ModalStore.close()
     } finally {
+      console.error("onConnect done: ")
       setLoading(false)
       setUri('')
     }

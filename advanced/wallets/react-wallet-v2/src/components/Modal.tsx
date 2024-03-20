@@ -28,6 +28,7 @@ export default function Modal({keepkey}:any) {
   }, [open])
 
   const componentView = useMemo(() => {
+    console.log("view selected: ",view)
     switch (view) {
       case 'SessionProposalModal':
         return <SessionProposalModal keepkey={keepkey}/>

@@ -17,7 +17,7 @@ import { approveNearRequest } from '@/utils/NearRequestHandlerUtil'
 import { TEZOS_SIGNING_METHODS } from '@/data/TezosData'
 import { KADENA_SIGNING_METHODS } from '@/data/KadenaData'
 
-export default function useWalletConnectEventsManager(keepkey) {
+export default function useWalletConnectEventsManager(initialized) {
   /******************************************************************************
    * 1. Open session proposal modal for confirmation / rejection
    *****************************************************************************/
@@ -26,6 +26,7 @@ export default function useWalletConnectEventsManager(keepkey) {
       console.log('session_proposal', proposal)
       // set the verify context so it can be displayed in the projectInfoCard
       SettingsStore.setCurrentRequestVerifyContext(proposal.verifyContext)
+      console.log('session_proposal ***** ', proposal)
       ModalStore.open('SessionProposalModal', { proposal })
     },
     []
@@ -120,7 +121,8 @@ export default function useWalletConnectEventsManager(keepkey) {
    * Set up WalletConnect event listeners
    *****************************************************************************/
   useEffect(() => {
-    if (web3wallet) {
+    if (initialized && web3wallet) {
+      console.log("EVENTS STARTED! ")
       //sign
       // web3wallet.on('session_proposal', onSessionProposal)
       web3wallet.on('session_proposal', data => {
@@ -148,9 +150,10 @@ export default function useWalletConnectEventsManager(keepkey) {
         SettingsStore.setSessions(Object.values(web3wallet.getActiveSessions()))
       })
       // load sessions on init
+      console.log("getActiveSessions: ", web3wallet.getActiveSessions())
       SettingsStore.setSessions(Object.values(web3wallet.getActiveSessions()))
     } else {
       console.log('no keepkey or web3wallet')
     }
-  }, [keepkey, web3wallet, onAuthRequest, onSessionProposal, onSessionRequest])
+  }, [initialized, web3wallet, onAuthRequest, onSessionProposal, onSessionRequest])
 }

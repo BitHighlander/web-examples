@@ -11,14 +11,14 @@ import { createWeb3Wallet, web3wallet } from '@/utils/WalletConnectUtil'
 import { createOrRestoreKadenaWallet } from '@/utils/KadenaWalletUtil'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSnapshot } from 'valtio'
-import useSmartAccounts from './useSmartAccounts'
+// import useSmartAccounts from './useSmartAccounts'
 
 export default function useInitialization() {
   const [initialized, setInitialized] = useState(false)
   const prevRelayerURLValue = useRef<string>('')
 
   const { relayerRegionURL } = useSnapshot(SettingsStore.state)
-  const { initializeSmartAccounts } = useSmartAccounts()
+  // const { initializeSmartAccounts } = useSmartAccounts()
 
   const onInitialize = useCallback(async () => {
     try {
@@ -31,7 +31,7 @@ export default function useInitialization() {
       // const { tronAddresses } = await createOrRestoreTronWallet()
       // const { tezosAddresses } = await createOrRestoreTezosWallet()
       // const { kadenaAddresses } = await createOrRestoreKadenaWallet()
-      // await initializeSmartAccounts(eip155Wallets[eip155Addresses[0]].getPrivateKey())
+      //await initializeSmartAccounts(eip155Wallets[eip155Addresses[0]].getPrivateKey())
 
       SettingsStore.setEIP155Address(eip155Addresses[0])
       // SettingsStore.setCosmosAddress(cosmosAddresses[0])
@@ -45,10 +45,8 @@ export default function useInitialization() {
       await createWeb3Wallet(relayerRegionURL)
       setInitialized(true)
     } catch (err: unknown) {
-      console.error('Initialization failed', err)
       alert(err)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [relayerRegionURL])
 
   // restart transport if relayer region changes

@@ -43,7 +43,7 @@ const StyledSpan = styled('span', {
   fontWeight: 400
 } as any)
 
-export default function SessionProposalModal() {
+export default function SessionProposalModal({keepkey}:any) {
   const { smartAccountEnabled } = useSnapshot(SettingsStore.state)
   // Get proposal data and wallet address from store
   const data = useSnapshot(ModalStore.state)
@@ -53,6 +53,7 @@ export default function SessionProposalModal() {
   const { getAvailableSmartAccounts } = useSmartAccounts()
 
   const supportedNamespaces = useMemo(() => {
+    console.log("supportedNamespaces checkpoint")
     // eip155
     const eip155Chains = Object.keys(EIP155_CHAINS)
     const eip155Methods = Object.values(EIP155_SIGNING_METHODS)
@@ -89,10 +90,10 @@ export default function SessionProposalModal() {
     // const tronChains = Object.keys(TRON_CHAINS)
     // const tronMethods = Object.values(TRON_SIGNING_METHODS)
 
-    console.log("keepkey:",keepkey)
-    //eip155Addresses[0]
+    console.log("keepkey FINAL:",keepkey)
+    // eip155Addresses[0]
     // let eip155Addresses = [keepkey['ETH'].wallet.address]
-
+    // console.log("keepkey:",eip155Addresses)
     return {
       eip155: {
         chains: eip155Chains,
@@ -208,10 +209,11 @@ export default function SessionProposalModal() {
   }, [proposal, supportedChains])
   console.log('notSupportedChains', notSupportedChains)
   const getAddress = useCallback((namespace?: string) => {
+    console.log("getAddress checkpoint: ",namespace)
     if (!namespace) return 'N/A'
     switch (namespace) {
       case 'eip155':
-        return eip155Addresses[0]
+        return eip155Addresses[0] || ''
       // case 'cosmos':
       //   return cosmosAddresses[0]
       // case 'kadena':
@@ -246,6 +248,7 @@ export default function SessionProposalModal() {
 
   // Hanlde approve action, construct session namespace
   const onApprove = useCallback(async () => {
+    console.log("onApprove checkpoint: ",proposal)
     if (proposal && namespaces) {
       setIsLoadingApprove(true)
 
