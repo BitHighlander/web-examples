@@ -17,9 +17,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   // Step 1 - Initialize wallets and wallet connect client
   //use software
-  // const keepkey = useInitialization()
+  const keepkey = useInitialization()
   // use hardware
-  const keepkey = useKeepKey()
+  // const keepkey = useKeepKey()
 
   // Step 2 - Once initialized, set up wallet connect event manager
   useWalletConnectEventsManager(keepkey)

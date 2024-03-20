@@ -172,7 +172,8 @@ export default function useKeepKey() {
             // SettingsStore.setTronAddress(tronAddresses[0])
             // SettingsStore.setTezosAddress(tezosAddresses[0])
             // SettingsStore.setKadenaAddress(kadenaAddresses[0])
-            createWeb3Wallet(relayerRegionURL)
+            console.log("relayerRegionURL: ", relayerRegionURL);
+            await createWeb3Wallet(relayerRegionURL)
             // setInitialized(true)
         } catch (err: unknown) {
             alert(err)

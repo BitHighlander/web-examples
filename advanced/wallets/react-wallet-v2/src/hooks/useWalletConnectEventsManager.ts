@@ -46,7 +46,9 @@ export default function useWalletConnectEventsManager(initialized) {
       console.log('session_request', requestEvent)
       const { topic, params, verifyContext } = requestEvent
       const { request } = params
+
       const requestSession = web3wallet.engine.signClient.session.get(topic)
+      console.log('session_request ***** ', requestEvent)
       // set the verify context so it can be displayed in the projectInfoCard
       SettingsStore.setCurrentRequestVerifyContext(verifyContext)
 
@@ -123,6 +125,7 @@ export default function useWalletConnectEventsManager(initialized) {
   useEffect(() => {
     if (initialized && web3wallet) {
       console.log("EVENTS STARTED! ")
+      console.log("web3wallet", web3wallet)
       //sign
       // web3wallet.on('session_proposal', onSessionProposal)
       web3wallet.on('session_proposal', data => {
