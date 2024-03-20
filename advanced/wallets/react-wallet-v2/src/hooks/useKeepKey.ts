@@ -147,7 +147,7 @@ export default function useKeepKey() {
         try {
             // const { eip155Addresses } = createOrRestoreEIP155Wallet()
             let keepkey = await onStartKeepkey()
-            setKeepKey(keepkey)
+
             console.log("keepkey: ", keepkey);
             console.log("keepkey: ", keepkey.ETH);
             console.log("keepkey: ", keepkey.ETH.wallet);
@@ -175,6 +175,7 @@ export default function useKeepKey() {
             console.log("relayerRegionURL: ", relayerRegionURL);
             await createWeb3Wallet(relayerRegionURL)
             // setInitialized(true)
+            setKeepKey(keepkey)
         } catch (err: unknown) {
             alert(err)
         }

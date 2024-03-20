@@ -14,18 +14,19 @@ export default function WalletConnectPage(params: { deepLink?: string }) {
 
   async function onConnect(uri: string) {
     const { topic: pairingTopic } = parseUri(uri)
-    // if for some reason, the proposal is not received, we need to close the modal when the pairing expires (5mins)
-    const pairingExpiredListener = ({ topic }: { topic: string }) => {
-      if (pairingTopic === topic) {
-        styledToast('Pairing expired. Please try again with new Connection URI', 'error')
-        ModalStore.close()
-        web3wallet.core.pairing.events.removeListener('pairing_expire', pairingExpiredListener)
-      }
-    }
-    web3wallet.once('session_proposal', () => {
-      web3wallet.core.pairing.events.removeListener('pairing_expire', pairingExpiredListener)
-    })
     try {
+      // if for some reason, the proposal is not received, we need to close the modal when the pairing expires (5mins)
+      const pairingExpiredListener = ({ topic }: { topic: string }) => {
+        if (pairingTopic === topic) {
+          styledToast('Pairing expired. Please try again with new Connection URI', 'error')
+          ModalStore.close()
+          web3wallet.core.pairing.events.removeListener('pairing_expire', pairingExpiredListener)
+        }
+      }
+      web3wallet.once('session_proposal', (data) => {
+        console.log("session_proposal: CHECKPPIOINT WALLET CONNECT", data)
+        web3wallet.core.pairing.events.removeListener('pairing_expire', pairingExpiredListener)
+      })
       setLoading(true)
       web3wallet.core.pairing.events.on('pairing_expire', pairingExpiredListener)
       console.log("Pairing URI: ", uri)

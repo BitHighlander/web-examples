@@ -3,21 +3,21 @@ import { Core } from '@walletconnect/core'
 export let web3wallet: IWeb3Wallet
 
 export async function createWeb3Wallet(relayerRegionURL: string) {
-  const core = new Core({
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '14d36ca1bc76a70273d44d384e8475ae',
-    relayUrl: relayerRegionURL || process.env.NEXT_PUBLIC_RELAY_URL || 'wss://relay.walletconnect.com'
-  })
-  web3wallet = await Web3Wallet.init({
-    core,
-    metadata: {
-      name: 'KeepKey Wallet Connect dApp',
-      description: 'Connect to thousands of dApps with your keepkey',
-      url: 'https://keepkey.com',
-      icons: ['https://pioneers.dev/coins/keepkey.png']
-    }
-  })
-  console.log("web3wallet: ",web3wallet)
   try {
+    const core = new Core({
+      projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '14d36ca1bc76a70273d44d384e8475ae',
+      relayUrl: relayerRegionURL || process.env.NEXT_PUBLIC_RELAY_URL || 'wss://relay.walletconnect.com'
+    })
+    web3wallet = await Web3Wallet.init({
+      core,
+      metadata: {
+        name: 'KeepKey Wallet Connect dApp',
+        description: 'Connect to thousands of dApps with your keepkey',
+        url: 'https://keepkey.com',
+        icons: ['https://pioneers.dev/coins/keepkey.png']
+      }
+    })
+    console.log("web3wallet: ",web3wallet)
     const clientId = await web3wallet.engine.signClient.core.crypto.getClientId()
     console.log('WalletConnect ClientID: ', clientId)
     localStorage.setItem('WALLETCONNECT_CLIENT_ID', clientId)

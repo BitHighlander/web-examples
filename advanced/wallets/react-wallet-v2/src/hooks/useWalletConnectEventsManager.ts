@@ -17,7 +17,7 @@ import { approveNearRequest } from '@/utils/NearRequestHandlerUtil'
 import { TEZOS_SIGNING_METHODS } from '@/data/TezosData'
 import { KADENA_SIGNING_METHODS } from '@/data/KadenaData'
 
-export default function useWalletConnectEventsManager(initialized) {
+export default function useWalletConnectEventsManager(keepkey: any) {
   /******************************************************************************
    * 1. Open session proposal modal for confirmation / rejection
    *****************************************************************************/
@@ -123,8 +123,9 @@ export default function useWalletConnectEventsManager(initialized) {
    * Set up WalletConnect event listeners
    *****************************************************************************/
   useEffect(() => {
-    if (initialized && web3wallet) {
+    if (web3wallet) {
       console.log("EVENTS STARTED! ")
+      console.log("keepkey", keepkey)
       console.log("web3wallet", web3wallet)
       //sign
       // web3wallet.on('session_proposal', onSessionProposal)
@@ -158,5 +159,5 @@ export default function useWalletConnectEventsManager(initialized) {
     } else {
       console.log('no keepkey or web3wallet')
     }
-  }, [initialized, web3wallet, onAuthRequest, onSessionProposal, onSessionRequest])
+  }, [keepkey, web3wallet, onAuthRequest, onSessionProposal, onSessionRequest])
 }
